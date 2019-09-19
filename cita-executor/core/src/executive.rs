@@ -232,7 +232,7 @@ impl<'a, B: 'a + StateBackend> Executive<'a, B> {
     }
 
     fn transact_set_abi(&mut self, data: &[u8]) -> bool {
-        if data.len <= 20 {
+        if data.len() <= 20 {
             return false;
         }
         let account = H160::from(&data[0..20]);
@@ -245,7 +245,7 @@ impl<'a, B: 'a + StateBackend> Executive<'a, B> {
     }
 
     fn transact_set_code(&mut self, data: &[u8]) -> bool {
-        if data.len <= 20 {
+        if data.len() <= 20 {
             return false;
         }
         let account = H160::from(&data[0..20]);
@@ -292,7 +292,7 @@ impl<'a, B: 'a + StateBackend> Executive<'a, B> {
 
     fn transact_get_kv_h256(&mut self, data: &[u8]) -> Option<H256> {
         if data.len() < 52 {
-            return false;
+            return None;
         }
         let account = H160::from(&data[0..20]);
         let key = H256::from_slice(&data[20..52]);
